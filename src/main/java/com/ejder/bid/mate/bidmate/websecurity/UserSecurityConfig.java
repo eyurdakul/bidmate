@@ -1,8 +1,8 @@
 package com.ejder.bid.mate.bidmate.websecurity;
 
-import com.ejder.bid.mate.bidmate.common.Matchers;
-import com.ejder.bid.mate.bidmate.common.Paths;
-import com.ejder.bid.mate.bidmate.common.Roles;
+import com.ejder.bid.mate.bidmate.constants.Matchers;
+import com.ejder.bid.mate.bidmate.constants.Paths;
+import com.ejder.bid.mate.bidmate.constants.Roles;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

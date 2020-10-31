@@ -1,6 +1,6 @@
 package com.ejder.bid.mate.bidmate.websecurity;
 
-import com.ejder.bid.mate.bidmate.common.Matchers;
+import com.ejder.bid.mate.bidmate.constants.Matchers;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;

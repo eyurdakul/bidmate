@@ -1,4 +1,4 @@
-package com.ejder.bid.mate.bidmate.common;
+package com.ejder.bid.mate.bidmate.constants;
 
 public enum Matchers {
 

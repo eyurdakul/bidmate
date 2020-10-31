@@ -1,11 +1,13 @@
 package com.ejder.bid.mate.bidmate.routing;
 
-import com.ejder.bid.mate.bidmate.common.Paths;
+import com.ejder.bid.mate.bidmate.constants.Common;
+import com.ejder.bid.mate.bidmate.constants.Paths;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -28,4 +30,22 @@ public class MvcConfig implements WebMvcConfigurer {
                 .setCachePeriod(31556926);
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
+
+    @Bean
+    public LocaleResolver localeResolver(){
+        CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
+        cookieLocaleResolver.setDefaultLocale(Common.DEFAULT_LANG);
+        return cookieLocaleResolver;
+    }
+
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor(){
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName(Common.LANG_PARAM);
+        return localeChangeInterceptor;
+    }
 }
