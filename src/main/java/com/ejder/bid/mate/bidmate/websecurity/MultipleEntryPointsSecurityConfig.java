@@ -1,5 +1,7 @@
 package com.ejder.bid.mate.bidmate.websecurity;
 
+import com.ejder.bid.mate.bidmate.constants.Roles;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,17 +15,22 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class MultipleEntryPointsSecurityConfig {
 
+    @Value("${admin.user}")
+    private String adminUser;
+    @Value("${admin.password}")
+    private String adminPassword;
+
     @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User
                 .withUsername("user")
                 .password(encoder().encode("pass"))
-                .roles("USER").build());
+                .roles(Roles.USER.role).build());
         manager.createUser(User
-                .withUsername("admin")
-                .password(encoder().encode("pass"))
-                .roles("ADMIN").build());
+                .withUsername(adminUser)
+                .password(encoder().encode(adminPassword))
+                .roles(Roles.ADMIN.role).build());
         return manager;
     }
 
