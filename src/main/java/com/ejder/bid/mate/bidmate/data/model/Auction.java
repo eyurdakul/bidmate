@@ -1,12 +1,12 @@
-package com.ejder.bid.mate.bidmate.model;
+package com.ejder.bid.mate.bidmate.data.model;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.validation.constraints.NotBlank;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,20 +16,24 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-public class Offer {
+public class Auction {
 
     @Id
     @GeneratedValue
     private Integer id;
 
-    @NotNull
-    private Integer auctionid;
-    @NotNull
-    private Integer userid;
-    @ColumnDefault("false")
-    private Boolean automated;
+    @NotBlank
+    private Integer productid;
+    @ColumnDefault("300")
+    private Integer duration;
+    @ColumnDefault("NOW()")
+    private LocalDateTime scheduled;
+    @ColumnDefault(value = "1")
+    private String status;
     @ColumnDefault("0")
-    private BigDecimal amount;
+    private BigDecimal lastoffer;
     @CreationTimestamp
     private LocalDateTime created;
+    @UpdateTimestamp
+    private LocalDateTime updated;
 }

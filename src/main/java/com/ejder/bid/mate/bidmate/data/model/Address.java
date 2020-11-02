@@ -1,14 +1,12 @@
-package com.ejder.bid.mate.bidmate.model;
+package com.ejder.bid.mate.bidmate.data.model;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,20 +18,30 @@ public class Address {
     @GeneratedValue
     private Integer id;
 
-    @NotNull
+    @NotBlank
     private Integer userid;
-    @NotNull
+    @NotBlank
     private String street;
-    @NotNull
+    @NotBlank
     private String number;
-    @NotNull
+    @NotBlank
     private String postcode;
-    @NotNull
+    @NotBlank
     private String city;
-    @NotNull
+    @NotBlank
     private String country;
     @CreationTimestamp
     private LocalDateTime created;
     @UpdateTimestamp
     private LocalDateTime updated;
+    @OneToOne(mappedBy = "address", optional = false)
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

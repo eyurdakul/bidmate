@@ -1,13 +1,11 @@
-package com.ejder.bid.mate.bidmate.model;
+package com.ejder.bid.mate.bidmate.data.model;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Getter
@@ -18,15 +16,15 @@ public class User {
     @GeneratedValue
     private Integer id;
 
-    @NotNull
+    @NotBlank
     private String firstname;
-    @NotNull
+    @NotBlank
     private String lastname;
-    @NotNull
+    @NotBlank
     private String email;
-    @NotNull
+    @NotBlank
     private String password;
-    @NotNull
+    @NotBlank
     private String confirmation;
     @ColumnDefault("false")
     private Boolean confirmed;
