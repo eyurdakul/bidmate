@@ -11,9 +11,4 @@ public class BidmateApplication {
     public static void main(String[] args) {
         SpringApplication.run(BidmateApplication.class, args);
     }
-
-    @GetMapping("/hello")
-    public String sayHello(){
-        return "hello!";
-    }
 }

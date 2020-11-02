@@ -10,7 +10,6 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 @Configuration
-@EnableWebMvc
 public class MvcConfig implements WebMvcConfigurer {
 
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -20,14 +19,6 @@ public class MvcConfig implements WebMvcConfigurer {
                 registry.addViewController(path.path).setViewName(path.view);
             }
         }
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry){
-        //@TODO add css js and test
-        registry.addResourceHandler("/public/resources/**", "/user/resources/**", "/admin/resources/**")
-                .addResourceLocations("public/resources", "user/resources", "admin/resources")
-                .setCachePeriod(31556926);
     }
 
     @Override
