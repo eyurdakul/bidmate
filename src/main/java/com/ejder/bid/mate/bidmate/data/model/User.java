@@ -32,6 +32,10 @@ public class User {
     @NotBlank
     private String password;
     @NotBlank
+    private boolean newsletter;
+    @NotBlank
+    private boolean terms;
+    @NotBlank
     private String confirmation;
     @ColumnDefault("false")
     private Boolean confirmed;

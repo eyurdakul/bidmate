@@ -1,0 +1,33 @@
+{
+  "name": "bidmate",
+  "version": "0.0.1",
+  "homepage": "https://github.com/eyurdakul",
+  "authors": [
+    "Ejder Yurdakul"
+  ],
+  "main": "index.html",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node",
+    "yui"
+  ],
+  "license": "Artistic License 2.0",
+  "ignore": [
+    "**/.*",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": "1.7.2",
+    "angular-route": "1.7.2",
+    "socket.io-client": "latest",
+    "angular-animate": "1.7.2",
+    "angular-sanitize": "1.7.2",
+    "angular-material": "1.2.1",
+    "angular-messages": "1.7.2"
+  },
+  "resolutions": {
+    "angular": "1.8.2"
+  }
+}

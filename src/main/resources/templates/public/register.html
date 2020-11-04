@@ -1,12 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="/js/app.js" type="application/javascript"></script>
-    <link rel="stylesheet" href="/css/main.css"/>
-</head>
-<body>
-register
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!--/*/ <th:block th:include="public/fragments/header.html :: header"></th:block> /*/-->
+<body class="register-page" ng-app="appRoot" ng-strict-di>
+<main class="md-whiteframe-1dp"  ng-controller="RegisterController" layout="column" layout-padding>
+    <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools"  th:text="#{signup.title}"></div>
+    </md-toolbar>
+    <md-content>
+        <section>
+            <form name="registerForm">
+                <md-subheader class="md-primary" th:text="#{signup.personaldata}"></md-subheader>
+                <md-divider layout-padding></md-divider>
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label th:text="#{firstname.label}"></label>
+                        <input placeholder="John" required name="firstname" ng-model="user.firstname">
+                        <div ng-messages="registerForm.firstname.$error">
+                            <div ng-message="required" th:text="#{required.field}"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label th:text="#{lastname.label}"></label>
+                        <input placeholder="Doe" required name="lastname" ng-model="user.lastname">
+                        <div ng-messages="registerForm.lastname.$error">
+                            <div ng-message="required" th:text="#{required.field}"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label th:text="#{email.label}"></label>
+                        <input placeholder="john.doe@mail.com" md-email required name="email" type="email" ng-model="user.email">
+                        <div ng-messages="registerForm.email.$error">
+                            <div ng-message="required" th:text="#{required.field}"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label><span  th:text="#{repeat.email.label}"></span><md-icon class="valid-check" ng-show="registerForm.repeatemail.$valid">check</md-icon></label>
+                        <input th:placeholder="#{repeat.mail.placeholder}" required name="repeatemail" type="email" ng-model="repeatEmail" ng-change="checkEmail()">
+                        <div ng-messages="registerForm.repeatemail.$error">
+                            <div ng-message="required" th:text="#{required.field}"></div>
+                            <div ng-message="nomatch" th:text="#{repeat.email.nomatch}"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label th:text="#{password.label}"></label>
+                        <input placeholder="******" ng-minlength="6" required name="password" type="password" ng-model="user.password">
+                        <div ng-messages="registerForm.password.$error">
+                            <div ng-message="required" th:text="#{required.field}"></div>
+                            <div ng-message="minlength" th:text="#{length.field}"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label><span  th:text="#{repeat.password.label}"></span><md-icon class="valid-check" ng-show="registerForm.repeatepassword.$valid">check</md-icon></label>
+                        <input placeholder="******" required name="repeatepassword" type="password" ng-model="repeatPassword" ng-change="checkPassword()">
+                        <div ng-messages="registerForm.repeatepassword.$error">
+                            <div ng-message="required" th:text="#{required.field}"></div>
+                            <div ng-message="nomatch" th:text="#{repeat.password.nomatch}"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-subheader class="md-primary" th:text="#{signup.addressdata}"></md-subheader>
+                <md-divider layout-padding></md-divider>
+                <div layout="row">
+                    <md-input-container flex="40">
+                        <label th:text="#{street.label}"></label>
+                        <input placeholder="Your street" required name="street" ng-model="user.street">
+                        <div ng-messages="registerForm.street.$error">
+                            <div ng-message="required" th:text="#{required.field}"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="10">
+                        <label th:text="#{number.label}"></label>
+                        <input placeholder="5" required name="number" ng-model="user.number">
+                        <div ng-messages="registerForm.number.$error">
+                            <div ng-message="required" th:text="#{required.field}"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="30">
+                        <label th:text="#{city.label}"></label>
+                        <input placeholder="New York" required name="city" ng-model="user.city">
+                        <div ng-messages="registerForm.city.$error">
+                            <div ng-message="required" th:text="#{required.field}"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="20">
+                        <label th:text="#{postcode.label}"></label>
+                        <input placeholder="1234" required name="postcode" ng-model="user.postcode">
+                        <div ng-messages="registerForm.postcode.$error">
+                            <div ng-message="required" th:text="#{required.field}"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <md-switch class="md-primary" md-no-ink th:aria-label="#{agree.terms}" ng-model="terms">
+                            <span th:text="#{terms.label}"></span>
+                        </md-switch>
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <md-switch class="md-primary" md-no-ink th:aria-label="#{subscribe.newsletter}" ng-model="newsletter">
+                            <span th:text="#{newsletter.label}"></span>
+                        </md-switch>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-button class="md-raised" th:text="#{button.reset}" ng-click="resetForm()"></md-button>
+                    <md-button class="md-raised md-primary" th:text="#{button.signup}" ng-click="submitForm()" ng-disabled="registerForm.$invalid || !terms"></md-button>
+                </div>
+                <div layout="row">
+                    <md-input-container>
+                        <span  th:text="#{signup.bottomline}"></span><md-button class="md-accent" th:text="#{button.login}" ng-click="goToLogin()"></md-button>
+                    </md-input-container>
+                </div>
+            </form>
+        </section>
+    </md-content>
+    <div class="bottom-placeholder"></div>
+</main>
 </body>
 </html>

@@ -15,6 +15,7 @@ public class Util {
         return hash;
     }
 
+    //@TODO add configuration to .properties file
     public void sendMail(String to, String subject, String text) {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom("noreply@baeldung.com");

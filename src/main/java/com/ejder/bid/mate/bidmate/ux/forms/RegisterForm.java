@@ -22,6 +22,10 @@ public class RegisterForm {
     @NotBlank
     @Size(min = 6)
     private String password;
+    @NotBlank
+    private boolean newsletter;
+    @NotBlank
+    private boolean terms;
 
     @NotBlank
     private String city;

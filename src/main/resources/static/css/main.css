@@ -1,3 +1,24 @@
 body{
-    background: green;
+    padding: 0;
+}
+body.register-page{
+    background: url("/assets/undraw_step_to_the_sun_nxqq.svg") no-repeat bottom left;
+}
+main{
+    width: 860px;
+    margin: 8px auto;
+    opacity: 0.95;
+    background: #fafafa;
+}
+.valid-check{
+    color: #4CAF50;
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    min-height: 16px;
+    min-width: 16px;
+}
+.bottom-placeholder{
+    clear: both;
+    height: 65px;
 }
