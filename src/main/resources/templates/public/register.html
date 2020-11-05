@@ -9,7 +9,10 @@
     <md-content>
         <section>
             <form name="registerForm">
-                <md-subheader class="md-primary" th:text="#{signup.personaldata}"></md-subheader>
+                <md-subheader class="md-primary">
+                    <md-icon class="title-icon">face</md-icon>
+                    <span th:text="#{signup.personaldata}"></span>
+                </md-subheader>
                 <md-divider layout-padding></md-divider>
                 <div layout="row">
                     <md-input-container flex="50">
@@ -62,7 +65,10 @@
                         </div>
                     </md-input-container>
                 </div>
-                <md-subheader class="md-primary" th:text="#{signup.addressdata}"></md-subheader>
+                <md-subheader class="md-primary">
+                    <md-icon class="title-icon">home</md-icon>
+                    <span th:text="#{signup.addressdata}"></span>
+                </md-subheader>
                 <md-divider layout-padding></md-divider>
                 <div layout="row">
                     <md-input-container flex="40">
@@ -96,12 +102,12 @@
                 </div>
                 <div layout="row">
                     <md-input-container flex="50">
-                        <md-switch class="md-primary" md-no-ink th:aria-label="#{agree.terms}" ng-model="terms">
+                        <md-switch class="md-primary" md-no-ink th:aria-label="#{agree.terms}" ng-model="user.terms">
                             <span th:text="#{terms.label}"></span>
                         </md-switch>
                     </md-input-container>
                     <md-input-container flex="50">
-                        <md-switch class="md-primary" md-no-ink th:aria-label="#{subscribe.newsletter}" ng-model="newsletter">
+                        <md-switch class="md-primary" md-no-ink th:aria-label="#{subscribe.newsletter}" ng-model="user.newsletter">
                             <span th:text="#{newsletter.label}"></span>
                         </md-switch>
                     </md-input-container>

@@ -6,9 +6,9 @@ const RegisterController = [
     "$http",
     "$window",
     function ($scope, $log, $http, $window) {
-        $log.log("controller is loaded");
+        $log.log("RegisterController is loaded");
 
-        angular.copy(User, $scope.user);
+        $scope.user = angular.copy(User);
         $scope.repeatEmail = "";
         $scope.repeatPassword = "";
 
@@ -22,7 +22,9 @@ const RegisterController = [
             $window.location.href = "/login";
         }
         $scope.resetForm = function(){
-            angular.copy(User, $scope.user);
+            $scope.user = angular.copy(User);
+            $scope.repeatEmail = "";
+            $scope.repeatPassword = "";
             $scope.registerForm.$setPristine()
         }
         $scope.submitForm = function(){
@@ -30,7 +32,6 @@ const RegisterController = [
                 .success($log.log)
                 .error($log.log);
         }
-
 
         return this;
     }
