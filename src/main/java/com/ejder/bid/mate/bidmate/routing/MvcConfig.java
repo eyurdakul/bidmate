@@ -49,6 +49,7 @@ public class MvcConfig implements WebMvcConfigurer {
         templateResolver.setPrefix("classpath:/templates/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML");
+        templateResolver.setCacheable(false);
         return templateResolver;
     }
 }

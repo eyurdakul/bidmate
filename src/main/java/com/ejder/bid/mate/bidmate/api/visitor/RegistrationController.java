@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/register")
+@RequestMapping("/public/api")
 public class RegistrationController {
 
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping(value = "/save",
+    @PostMapping(value = "/register",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity register(@RequestBody RegisterForm registerForm){

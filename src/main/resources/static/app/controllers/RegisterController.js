@@ -1,4 +1,5 @@
 import User from "../models/User.js"
+import Countries from "../models/Countries.js";
 
 const RegisterController = [
     "$scope",
@@ -9,6 +10,10 @@ const RegisterController = [
         $log.log("RegisterController is loaded");
 
         $scope.user = angular.copy(User);
+        $scope.countries = angular.copy(Countries);
+        $scope.selectedCountry = null;
+        $scope.searchCountryText = "";
+
         $scope.repeatEmail = "";
         $scope.repeatPassword = "";
 
@@ -28,9 +33,22 @@ const RegisterController = [
             $scope.registerForm.$setPristine()
         }
         $scope.submitForm = function(){
-            $http.post("/register/save", $scope.user)
+            $http.post("/public/api/register", $scope.user)
                 .success($log.log)
                 .error($log.log);
+        }
+        $scope.searchCountry = function(){
+            return $scope.searchCountryText ?
+                $scope.countries.filter(createFilter($scope.searchCountryText))
+                : $scope.countries;
+        }
+        //private functions
+        function createFilter(query) {
+            let lowercaseQuery = query.toLowerCase();
+
+            return function filterFn(country) {
+                return (country.name.toLowerCase().indexOf(lowercaseQuery) === 0);
+            };
         }
 
         return this;

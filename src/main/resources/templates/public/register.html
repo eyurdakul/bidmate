@@ -40,7 +40,7 @@
                     </md-input-container>
                     <md-input-container flex="50">
                         <label><span  th:text="#{repeat.email.label}"></span><md-icon class="valid-check" ng-show="registerForm.repeatemail.$valid">check</md-icon></label>
-                        <input th:placeholder="#{repeat.mail.placeholder}" required name="repeatemail" type="email" ng-model="repeatEmail" ng-change="checkEmail()">
+                        <input placeholder="john.doe@mail.com" required name="repeatemail" type="email" ng-model="repeatEmail" ng-change="checkEmail()">
                         <div ng-messages="registerForm.repeatemail.$error">
                             <div ng-message="required" th:text="#{required.field}"></div>
                             <div ng-message="nomatch" th:text="#{repeat.email.nomatch}"></div>
@@ -71,14 +71,14 @@
                 </md-subheader>
                 <md-divider layout-padding></md-divider>
                 <div layout="row">
-                    <md-input-container flex="40">
+                    <md-input-container flex="50">
                         <label th:text="#{street.label}"></label>
                         <input placeholder="Your street" required name="street" ng-model="user.street">
                         <div ng-messages="registerForm.street.$error">
                             <div ng-message="required" th:text="#{required.field}"></div>
                         </div>
                     </md-input-container>
-                    <md-input-container flex="10">
+                    <md-input-container flex="20">
                         <label th:text="#{number.label}"></label>
                         <input placeholder="5" required name="number" ng-model="user.number">
                         <div ng-messages="registerForm.number.$error">
@@ -86,16 +86,37 @@
                         </div>
                     </md-input-container>
                     <md-input-container flex="30">
+                        <label th:text="#{postcode.label}"></label>
+                        <input placeholder="1234" required name="postcode" ng-model="user.postcode">
+                        <div ng-messages="registerForm.postcode.$error">
+                            <div ng-message="required" th:text="#{required.field}"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="50">
                         <label th:text="#{city.label}"></label>
                         <input placeholder="New York" required name="city" ng-model="user.city">
                         <div ng-messages="registerForm.city.$error">
                             <div ng-message="required" th:text="#{required.field}"></div>
                         </div>
                     </md-input-container>
-                    <md-input-container flex="20">
-                        <label th:text="#{postcode.label}"></label>
-                        <input placeholder="1234" required name="postcode" ng-model="user.postcode">
-                        <div ng-messages="registerForm.postcode.$error">
+                    <md-input-container flex="50">
+                        <label th:text="#{country.label}"></label>
+                        <md-autocomplete md-selected-item="selectedCountry" md-search-text="searchCountryText"
+                                         md-items="country in searchCountry()" md-item-text="country.name"
+                                         md-min-length="0" placeholder="Belgium" md-no-cache="true"
+                                         md-input-name="country" ng-model="user.country" md-require-match="true"
+                                         md-select-on-match="true">
+                            <md-item-template>
+                                <md-icon md-svg-icon="assets/flags/{{country.code | lowercase}}.svg" aria-hidden="true"></md-icon>
+                                <span md-highlight-text="searchCountryText" md-highlight-flags="^i">
+                                    {{country.name}}
+                                </span>
+                            </md-item-template>
+                            <md-not-found th:text="#{not.found}"></md-not-found>
+                        </md-autocomplete>
+                        <div ng-messages="registerForm.country.$error">
                             <div ng-message="required" th:text="#{required.field}"></div>
                         </div>
                     </md-input-container>
@@ -114,7 +135,7 @@
                 </div>
                 <div layout="row">
                     <md-button class="md-raised" th:text="#{button.reset}" ng-click="resetForm()"></md-button>
-                    <md-button class="md-raised md-primary" th:text="#{button.signup}" ng-click="submitForm()" ng-disabled="registerForm.$invalid || !terms"></md-button>
+                    <md-button class="md-raised md-primary" th:text="#{button.signup}" ng-click="submitForm()" ng-disabled="registerForm.$invalid || !user.terms"></md-button>
                 </div>
                 <div layout="row">
                     <md-input-container>
