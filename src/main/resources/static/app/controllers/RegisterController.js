@@ -26,6 +26,9 @@ const RegisterController = [
         $scope.goToLogin = function(){
             $window.location.href = "/login";
         }
+        $scope.onCountrySelected = function(country){
+            $log.log("new item: "+country);
+        }
         $scope.resetForm = function(){
             $scope.user = angular.copy(User);
             $scope.repeatEmail = "";
@@ -42,6 +45,11 @@ const RegisterController = [
                 $scope.countries.filter(createFilter($scope.searchCountryText))
                 : $scope.countries;
         }
+        $scope.$watch("selectedCountry", function(newVal, oldVal){
+            if("name" in newVal){
+                $scope.user.country = newVal.name;
+            }
+        }, true);
         //private functions
         function createFilter(query) {
             let lowercaseQuery = query.toLowerCase();

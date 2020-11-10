@@ -16,10 +16,11 @@ public class Address {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Integer id;
 
-    @NotBlank
-    private Integer userid;
+    @OneToOne(mappedBy = "address")
+    private User user;
     @NotBlank
     private String street;
     @NotBlank
@@ -34,14 +35,4 @@ public class Address {
     private LocalDateTime created;
     @UpdateTimestamp
     private LocalDateTime updated;
-    @OneToOne(mappedBy = "address", optional = false)
-    private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

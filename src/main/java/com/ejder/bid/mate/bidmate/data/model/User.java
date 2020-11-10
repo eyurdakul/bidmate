@@ -17,10 +17,11 @@ public class User {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", referencedColumnName = "userid")
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
     @NotBlank
@@ -28,6 +29,7 @@ public class User {
     @NotBlank
     private String lastname;
     @NotBlank
+    @Column(unique=true)
     private String email;
     @NotBlank
     private String password;

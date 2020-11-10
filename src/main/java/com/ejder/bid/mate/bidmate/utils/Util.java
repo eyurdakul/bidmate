@@ -5,13 +5,16 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+import java.nio.ByteBuffer;
 import java.util.Properties;
 
 public class Util {
 
     public static String generateHash() {
-        String salt = Long.toString(System.currentTimeMillis());
-        String hash = MD5Encoder.encode(salt.getBytes());
+        Long salt = System.currentTimeMillis();
+        ByteBuffer buffer = ByteBuffer.allocate(16);
+        buffer.putLong(salt);
+        String hash = MD5Encoder.encode(buffer.array());
         return hash;
     }
 
