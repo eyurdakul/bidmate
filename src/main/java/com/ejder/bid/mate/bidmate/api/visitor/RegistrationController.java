@@ -1,5 +1,6 @@
 package com.ejder.bid.mate.bidmate.api.visitor;
 
+import com.ejder.bid.mate.bidmate.constants.Common;
 import com.ejder.bid.mate.bidmate.data.model.Address;
 import com.ejder.bid.mate.bidmate.data.model.User;
 import com.ejder.bid.mate.bidmate.data.repositories.UserRepository;
@@ -58,7 +59,10 @@ public class RegistrationController {
             userRepository.save(user);
         }catch (DataIntegrityViolationException exception){
             exception.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("EXISTS");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Common.EXISTS);
+        }catch (Exception exception){
+            exception.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Common.ERROR);
         }
 
         return ResponseEntity.ok(HttpStatus.OK);

@@ -3,8 +3,18 @@
 <!--/*/ <th:block th:include="public/fragments/header.html :: header"></th:block> /*/-->
 <body class="register-page" ng-app="appRoot" ng-strict-di>
 <main class="md-whiteframe-1dp"  ng-controller="RegisterController" layout="column" layout-padding>
-    <div ng-show="onerror" th:text="#{general.error.message}"></div>
-    <md-toolbar md-scroll-shrink>
+    <div class="alert alert-danger" role="alert">
+        <span th:text="#{error.message}"></span>
+    </div>
+    <div class="alert alert-info" role="alert">
+        <span th:text="#{exists.message}"></span>
+        <a href="/reset" class="alert-link" th:text="#{link.reset.password}"></a>
+    </div>
+    <div class="alert alert-success" role="alert">
+        <span th:text="#{registration.success}"></span>
+        <a href="/" class="alert-link" th:text="#{link.home}"></a>
+    </div>
+    <md-toolbar>
         <div class="md-toolbar-tools"  th:text="#{signup.title}"></div>
     </md-toolbar>
     <md-content>
@@ -147,13 +157,12 @@
                 </div>
                 <div layout="row">
                     <md-input-container>
-                        <span  th:text="#{signup.bottomline}"></span><md-button class="md-accent" th:text="#{button.login}" ng-click="goToLogin()"></md-button>
+                        <span  th:text="#{signup.bottomline}"></span><md-button class="md-accent" th:text="#{button.login}" href="/login"></md-button>
                     </md-input-container>
                 </div>
             </form>
         </section>
     </md-content>
-    <div class="bottom-placeholder"></div>
 </main>
 </body>
 </html>

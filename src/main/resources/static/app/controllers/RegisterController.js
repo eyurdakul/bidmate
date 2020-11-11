@@ -17,14 +17,15 @@ const RegisterController = [
         $scope.repeatEmail = "";
         $scope.repeatPassword = "";
 
+        $scope.onError = true;
+        $scope.onExists = true;
+        $scope.onSuccess = true;
+
         $scope.checkEmail = function(){
             $scope.registerForm.repeatemail.$setValidity("nomatch", ($scope.user.email == $scope.repeatEmail));
         }
         $scope.checkPassword = function(){
             $scope.registerForm.repeatepassword.$setValidity("nomatch", ($scope.user.password == $scope.repeatPassword));
-        }
-        $scope.goToLogin = function(){
-            $window.location.href = "/login";
         }
         $scope.onCountrySelected = function(country){
             $log.log("new item: "+country);

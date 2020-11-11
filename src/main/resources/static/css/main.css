@@ -3,6 +3,8 @@ body{
 }
 body.register-page{
     background: url("/assets/undraw_step_to_the_sun_nxqq.svg") no-repeat bottom left;
+    background-attachment: fixed;
+    height: auto;
 }
 main{
     width: 860px;
@@ -26,7 +28,8 @@ main{
     min-height: 18px;
     min-width: 18px;
 }
-.bottom-placeholder{
-    clear: both;
-    height: 65px;
+/*Dirty fixes*/
+body.register-page #input-10{
+    border-bottom: none;
+    height: auto;
 }

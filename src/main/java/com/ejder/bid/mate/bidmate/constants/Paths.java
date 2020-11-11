@@ -17,6 +17,7 @@ public enum Paths {
     HOME("/", "public/home"),
     LOGOUT("/logout", null),
     REGISTER("/register", "public/register"),
+    RESETPASS("/reset/password", "public/reset"),
     TERMS("/terms", "public/terms"),
     PRODUCT("/product", "public/product"),
     CONTACT("/contact", "public/contact"),
