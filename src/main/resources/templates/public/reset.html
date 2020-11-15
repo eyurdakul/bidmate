@@ -52,7 +52,7 @@
                         <md-input-container flex="50">
                             <label th:text="#{password.label}"></label>
                             <input placeholder="******" ng-minlength="6" required name="password" type="password" ng-model="userData.password">
-                            <div ng-messages="registerForm.password.$error">
+                            <div ng-messages="resetForm.password.$error">
                                 <div ng-message="required" th:text="#{required.field}"></div>
                                 <div ng-message="minlength" th:text="#{length.field}"></div>
                             </div>

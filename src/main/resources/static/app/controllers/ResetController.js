@@ -36,7 +36,7 @@ const ResetController = [
             $scope.userData.token = params.get("token");
             $scope.userData.email = params.get("email");
 
-            $scope.repeatPassword = null;
+            $scope.repeatPassword = "";
             $scope.formDisabled = false;
 
             $scope.stepTwo = ($scope.userData.token != null);
