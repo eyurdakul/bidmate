@@ -11,6 +11,9 @@ public class Common {
     public static final int PAGE_SIZE_LARGE = 25;
 
     //response entity body
-    public static final String EXISTS = "EXISTST";
+    public static final String EXISTS = "EXISTS";
     public static final String ERROR = "ERROR";
+    public static final String NOTFOUND = "NOTFOUND";
+    public static final String INVALID = "INVALID";
+    public static final String OK = "OK";
 }

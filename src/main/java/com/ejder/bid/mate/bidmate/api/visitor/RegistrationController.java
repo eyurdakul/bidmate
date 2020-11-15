@@ -6,11 +6,16 @@ import com.ejder.bid.mate.bidmate.data.model.User;
 import com.ejder.bid.mate.bidmate.data.repositories.UserRepository;
 import com.ejder.bid.mate.bidmate.utils.Util;
 import com.ejder.bid.mate.bidmate.ux.forms.RegisterForm;
+import com.ejder.bid.mate.bidmate.ux.forms.ResetForm;
+import io.netty.util.internal.StringUtil;
+import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,15 +62,49 @@ public class RegistrationController {
         user.setAddress(address);
         try{
             userRepository.save(user);
-        }catch (DataIntegrityViolationException exception){
+        }catch (DataIntegrityViolationException | ConstraintViolationException exception){
             exception.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Common.EXISTS);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Util.responseBody(Common.EXISTS));
         }catch (Exception exception){
             exception.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Common.ERROR);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Util.responseBody(Common.ERROR));
         }
 
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
+    @Transactional
+    @PostMapping(value = "/reset",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public ResponseEntity reset(@RequestBody ResetForm resetForm){
+
+        if(StringUtil.isNullOrEmpty(resetForm.getEmail())){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Util.responseBody(Common.INVALID));
+        }
+
+        Session session = entityManager.unwrap(Session.class);
+        User userFound = session.byNaturalId(User.class).using("email", resetForm.getEmail()).load();
+
+        if(userFound == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Util.responseBody(Common.NOTFOUND));
+        }
+
+        if(!StringUtil.isNullOrEmpty(resetForm.getToken())
+                && !StringUtil.isNullOrEmpty(resetForm.getPassword())){
+            if(!userFound.getConfirmation().equals(resetForm.getToken())){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Util.responseBody(Common.INVALID));
+            }
+            userFound.setPassword(resetForm.getPassword());
+            try {
+                userRepository.save(userFound);
+            }catch (Exception exception){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Util.responseBody(Common.ERROR));
+            }
+        }else{
+            //@TODO send email to user with reset link www.abc.com?token=xxxx&email=some@mail.com
+        }
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
 }

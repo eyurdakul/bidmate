@@ -5,41 +5,53 @@ const RegisterController = [
     "$scope",
     "$log",
     "$http",
-    "$window",
-    function ($scope, $log, $http, $window) {
+    function ($scope, $log, $http) {
         $log.log("RegisterController is loaded");
 
-        $scope.user = angular.copy(User);
-        $scope.countries = angular.copy(Countries);
-        $scope.selectedCountry = null;
-        $scope.searchCountryText = "";
-
-        $scope.repeatEmail = "";
-        $scope.repeatPassword = "";
-
-        $scope.onError = true;
-        $scope.onExists = true;
-        $scope.onSuccess = true;
-
         $scope.checkEmail = function(){
-            $scope.registerForm.repeatemail.$setValidity("nomatch", ($scope.user.email == $scope.repeatEmail));
+            $scope.registerForm.repeatemail.$setValidity("nomatch", ($scope.user.email === $scope.repeatEmail));
         }
         $scope.checkPassword = function(){
-            $scope.registerForm.repeatepassword.$setValidity("nomatch", ($scope.user.password == $scope.repeatPassword));
+            $scope.registerForm.repeatpassword.$setValidity("nomatch", ($scope.user.password === $scope.repeatPassword));
         }
         $scope.onCountrySelected = function(country){
             $log.log("new item: "+country);
         }
-        $scope.resetForm = function(){
+        $scope.initForm = function(){
             $scope.user = angular.copy(User);
+            $scope.countries = angular.copy(Countries);
+            $scope.selectedCountry = null;
+            $scope.searchCountryText = "";
+
             $scope.repeatEmail = "";
             $scope.repeatPassword = "";
-            $scope.registerForm.$setPristine()
+
+            $scope.onError = false;
+            $scope.onExists = false;
+            $scope.onSuccess = false;
+            $scope.formDisabled = false;
         }
         $scope.submitForm = function(){
+            $scope.onError = false;
+            $scope.onExists = false;
+            $scope.onSuccess = false;
+            $scope.formDisabled = true;
             $http.post("/public/api/register", $scope.user)
-                .success($log.log)
-                .error($log.log);
+                .then(function(response){
+                    $log.log(response);
+                    if(response.data === "OK"){
+                        $scope.onSuccess = true;
+                    }
+                })
+                .catch(function(error){
+                    $log.error(error);
+                    $scope.formDisabled = false;
+                    if(error.data.message === "EXISTS"){
+                        $scope.onExists = true;
+                    }else {
+                        $scope.onError = true;
+                    }
+                });
         }
         $scope.searchCountry = function(){
             return $scope.searchCountryText ?
@@ -47,7 +59,7 @@ const RegisterController = [
                 : $scope.countries;
         }
         $scope.$watch("selectedCountry", function(newVal, oldVal){
-            if("name" in newVal){
+            if(newVal != null && "name" in newVal){
                 $scope.user.country = newVal.name;
             }
         }, true);
@@ -60,6 +72,7 @@ const RegisterController = [
             };
         }
 
+        $scope.initForm();
         return this;
     }
 ];

@@ -1,11 +1,13 @@
 package com.ejder.bid.mate.bidmate.utils;
 
+import com.ejder.bid.mate.bidmate.constants.Common;
 import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.nio.ByteBuffer;
+import java.util.HashMap;
 import java.util.Properties;
 
 public class Util {
@@ -43,5 +45,11 @@ public class Util {
         props.put("mail.debug", "true");
 
         return mailSender;
+    }
+
+    public static HashMap<String, String> responseBody(String message){
+        HashMap<String, String> response = new HashMap<>(1);
+        response.put("message", message);
+        return response;
     }
 }

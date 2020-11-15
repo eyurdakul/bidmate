@@ -34,3 +34,4 @@ build/
 
 ### Frontend ###
 /src/main/resources/static/app/bower_components/
+/*.bat

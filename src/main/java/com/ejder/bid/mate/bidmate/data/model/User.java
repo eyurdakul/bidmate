@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -30,6 +31,7 @@ public class User {
     private String lastname;
     @NotBlank
     @Column(unique=true)
+    @NaturalId
     private String email;
     @NotBlank
     private String password;
@@ -38,6 +40,7 @@ public class User {
     @NotBlank
     private boolean terms;
     @NotBlank
+    @Column(unique = true)
     private String confirmation;
     @ColumnDefault("false")
     private Boolean confirmed;
